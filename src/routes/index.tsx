@@ -5,7 +5,7 @@ import { scale, verticalScale } from 'react-native-size-matters';
 import { TabBarIcons } from '../components/TabBarIcon';
 import { Catalog } from '../screens/Catalog';
 import { MyCars } from '../screens/MyCars';
-import { palletColors } from '../utils/palletColors';
+import { colorPalette } from '../utils/colorPalette';
 import { IconsNameProps } from './models';
 
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     paddingTop: verticalScale(15),
     paddingBottom: verticalScale(15),
     alignItems: 'center',
-    backgroundColor: palletColors.mediumRed,
+    backgroundColor: colorPalette.mediumRed,
   },
 });
 
@@ -45,8 +45,8 @@ export function Routes() {
               iconsNameOnFocus={iconsNameOnFocus}
             />
           ),
-          tabBarActiveTintColor: palletColors.paleGray,
-          tabBarInactiveTintColor: palletColors.darkRed,
+          tabBarActiveTintColor: colorPalette.paleGray,
+          tabBarInactiveTintColor: colorPalette.darkRed,
           tabBarLabelStyle: { fontSize: scale(12), fontWeight: 'bold' },
           tabBarStyle: styles.bottomTab,
         })}

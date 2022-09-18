@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { scale } from 'react-native-size-matters';
-import { palletColors } from '../utils/palletColors';
+import { colorPalette } from '../utils/colorPalette';
 
 interface TabBarIconsProps {
   routeName: string;
@@ -23,7 +23,7 @@ export function TabBarIcons({
           : iconsName[routeName]
       }
       size={scale(40)}
-      color={onFocus ? palletColors.paleGray : palletColors.darkRed}
+      color={onFocus ? colorPalette.paleGray : colorPalette.darkRed}
     />
   );
 }
