@@ -20,7 +20,6 @@ export function FormUpdateCar({
   setIsLoading,
   onSubmit,
 }: ModalUpdateCarProps) {
-
   async function updateCar({ id, title, brand, price, age }: CarProps) {
     setIsLoading(true);
     try {
@@ -69,6 +68,7 @@ export function FormUpdateCar({
         placeholder="Carro Teste"
         setFieldValue={setFieldValue}
         handleChange={handleChange}
+        inputToUpdate
       />
 
       <InputWithLabel
@@ -80,6 +80,7 @@ export function FormUpdateCar({
         placeholder="Ferrari"
         setFieldValue={setFieldValue}
         handleChange={handleChange}
+        inputToUpdate
       />
 
       <InputWithLabel
@@ -91,6 +92,7 @@ export function FormUpdateCar({
         placeholder="2022"
         setFieldValue={setFieldValue}
         handleChange={handleChange}
+        inputToUpdate
       />
 
       <InputWithLabel
@@ -102,6 +104,7 @@ export function FormUpdateCar({
         placeholder="50.000,00"
         setFieldValue={setFieldValue}
         handleChange={handleChange}
+        inputToUpdate
       />
 
       <ButtonDefault

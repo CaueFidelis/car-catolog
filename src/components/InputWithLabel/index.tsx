@@ -14,6 +14,7 @@ interface InputWithLabelProps {
   error: any;
   value: string | number;
   defaultValue: string | number;
+  inputToUpdate: boolean;
   hasMask?: boolean;
   typeMask?: string;
   optionsMask?: object;
@@ -30,6 +31,7 @@ export function InputWithLabel({
   error,
   value,
   defaultValue,
+  inputToUpdate,
   hasMask,
   typeMask,
   optionsMask,
@@ -39,7 +41,9 @@ export function InputWithLabel({
   handleChange,
   setFieldValue,
 }: InputWithLabelProps) {
-  const [valueToUpdate, setValueToUpdate] = useState(true);
+  const [valueToUpdate, setValueToUpdate] = useState(
+    inputToUpdate ? true : false,
+  );
   return (
     <>
       {valueToUpdate && value ? (

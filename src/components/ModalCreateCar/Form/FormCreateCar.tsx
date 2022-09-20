@@ -71,6 +71,7 @@ export function FormCreateCar({
         placeholder="Carro Teste"
         setFieldValue={setFieldValue}
         handleChange={handleChange}
+        inputToUpdate={false}
       />
 
       <InputWithLabel
@@ -82,6 +83,7 @@ export function FormCreateCar({
         placeholder="Ferrari"
         setFieldValue={setFieldValue}
         handleChange={handleChange}
+        inputToUpdate={false}
       />
 
       <InputWithLabel
@@ -95,6 +97,7 @@ export function FormCreateCar({
         placeholder="2022"
         setFieldValue={setFieldValue}
         handleChange={handleChange}
+        inputToUpdate={false}
       />
 
       <InputWithLabel
@@ -107,6 +110,7 @@ export function FormCreateCar({
         isNumber
         setFieldValue={setFieldValue}
         handleChange={handleChange}
+        inputToUpdate={false}
       />
 
       <ButtonDefault

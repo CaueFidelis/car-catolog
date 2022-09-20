@@ -96,6 +96,7 @@ export function CardCar({
           price={price}
           age={age}
           onSubmit={onSubmit}
+          setIsLoading={setIsLoading}
           isModalVisible={showUpdateModal}
           setIsModalVisible={setShowUpdateModal}
         />
