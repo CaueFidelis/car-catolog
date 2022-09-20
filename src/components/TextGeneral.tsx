@@ -13,6 +13,7 @@ interface TextGeneralProps {
   borderColor: string;
   marginTop: string;
   marginBottom: string;
+  alignSelf: string;
 }
 
 export const TextGeneral = styled.Text`
@@ -29,4 +30,5 @@ export const TextGeneral = styled.Text`
     props.borderColor || `transparent`};
   margin-top: ${(props: TextGeneralProps) => props.marginTop || `0px`};
   margin-bottom: ${(props: TextGeneralProps) => props.marginBottom || `0px`};
+  align-self: ${(props: TextGeneralProps) => props.alignSelf || 'auto'};
 `;
