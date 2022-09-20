@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
+import { mask } from 'react-native-mask-text';
 import { scale, verticalScale } from 'react-native-size-matters';
 import { ModalUpdateCarProps } from '..';
 import { CarProps } from '../../../screens/MyCars';
 import { colorPalette } from '../../../utils/colorPalette';
 import { ButtonDefault } from '../../ButtonDefault';
+import { InputMaskedWithLabel } from '../../InputMaskedWithLabel';
 import { InputWithLabel } from '../../InputWithLabel';
 import { TextGeneral } from '../../TextGeneral';
 import { schemaUpdateCar } from './schemaUpdateCar';
@@ -95,15 +97,23 @@ export function FormUpdateCar({
         inputToUpdate
       />
 
-      <InputWithLabel
+      <InputMaskedWithLabel
         name="price"
         label="Preço*"
         error={errors.price}
-        value={values.price}
         defaultValue={values.price}
         placeholder="50.000,00"
-        setFieldValue={setFieldValue}
         handleChange={handleChange}
+        setFieldValue={setFieldValue}
+        typeMask="currency"
+        optionsMask={{
+          prefix: 'R$ ',
+          decimalSeparator: ',',
+          groupSeparator: '.',
+          precision: 2,
+        }}
+        hasMask
+        isNumber
         inputToUpdate
       />
 

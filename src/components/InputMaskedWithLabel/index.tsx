@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+import { MaskedText } from 'react-native-mask-text';
 import { scale } from 'react-native-size-matters';
 import { colorPalette } from '../../utils/colorPalette';
 import { InputDefault } from '../InputDefault';
@@ -46,7 +47,7 @@ export function InputMaskedWithLabel({
   );
   return (
     <>
-      {valueToUpdate && value ? (
+      {valueToUpdate ? (
         <RowLabelAndText>
           <LabelForm>{label}</LabelForm>
           <TouchableOpacity
@@ -81,11 +82,12 @@ export function InputMaskedWithLabel({
       )}
       <InputDefaultMasked
         name={name}
+        value={value}
         keyboardType="numeric"
         maxLength={maxLength}
         error={error}
-        type={`${typeMask}`}
-        onChangeText={(value) => {
+        type={typeMask}
+        onChangeText={(value: any) => {
           setFieldValue(
             name,
             value.replace(/\$|\s|\.|[A-Z]/g, '').replace(',', '.'),

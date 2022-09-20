@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { Dispatch, SetStateAction } from 'react';
 import { ButtonDefault } from '../../ButtonDefault';
+import { InputMaskedWithLabel } from '../../InputMaskedWithLabel';
 import { InputWithLabel } from '../../InputWithLabel';
 import { schemaCreateCar } from './schemaCreateCar';
 
@@ -100,16 +101,24 @@ export function FormCreateCar({
         inputToUpdate={false}
       />
 
-      <InputWithLabel
+      <InputMaskedWithLabel
         name="price"
         label="Preço*"
         error={errors.price}
         value={values.price}
         defaultValue={values.price}
         placeholder="50.000,00"
-        isNumber
-        setFieldValue={setFieldValue}
         handleChange={handleChange}
+        setFieldValue={setFieldValue}
+        typeMask="currency"
+        optionsMask={{
+          prefix: 'R$ ',
+          decimalSeparator: ',',
+          groupSeparator: '.',
+          precision: 2,
+        }}
+        hasMask
+        isNumber
         inputToUpdate={false}
       />
 
