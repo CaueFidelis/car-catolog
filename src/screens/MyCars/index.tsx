@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { scale, verticalScale } from 'react-native-size-matters';
-import { CardCar } from '../../components/CardCar';
+import { CardCar, CardCarProps } from '../../components/CardCar';
 import { ContainerMessageInCenter } from '../../components/ContainerMessageInCenter';
 import { FloatButtonAddCar } from '../../components/FloatButtonAddCar';
 import { HeaderWithText } from '../../components/HeaderWithText';
+import { LoadingComponent } from '../../components/LoadingComponent';
 import { TextGeneral } from '../../components/TextGeneral';
 import { TextWithTouchable } from '../../components/TextWithTouchable';
 import { colorPalette } from '../../utils/colorPalette';
@@ -20,7 +21,9 @@ export interface CarProps {
 }
 
 export function MyCars() {
-  const [myCars, setMyCars] = useState<Array<CarProps>>([]);
+  const [myCars, setMyCars] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
   async function addCar({ title, brand, price, age }: CarProps) {
@@ -32,22 +35,53 @@ export function MyCars() {
         age,
       };
 
-      const teste = await axios.post(
+      const myNewCar = await axios.post(
         'http://api-test.bhut.com.br:3000/api/cars',
         dataCar,
       );
-      setMyCars([...myCars, teste.data._id]);
-      console.log(teste.data);
+      setMyCars([...myCars, myNewCar.data._id]);
     } catch (error) {
       console.log(error);
     }
   }
 
+  async function getMyCars() {}
+
+  async function reloadScreen() {
+    setRefresh(true);
+    setMyCars([]);
+    await getMyCars();
+
+    setTimeout(() => setRefresh(false), 1000);
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <LoadingComponent visible={isLoading} />
       <HeaderWithText title="Seus Carros" />
       {myCars.length > 0 ? (
-        <FlatList data={myCars} renderItem={({ item }) => CardCar(item)} />
+        <FlatList
+          data={myCars}
+          refreshControl={
+            <RefreshControl
+              refreshing={refresh}
+              onRefresh={() => reloadScreen()}
+            />
+          }
+          renderItem={({ item }: { item: CardCarProps }) => (
+            <CardCar
+              _id={item._id}
+              title={item.title}
+              brand={item.brand}
+              age={item.age}
+              price={item.price
+                .replace(/[A-Za-z][^\w\s]/gi, '')
+                .replace(/,/g, '.')}
+              setIsLoading={setIsLoading}
+              onSubmit={() => {}}
+            />
+          )}
+        />
       ) : (
         <ContainerMessageInCenter>
           <TextGeneral
