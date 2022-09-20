@@ -1,7 +1,7 @@
 import { scale } from 'react-native-size-matters';
 import styled from 'styled-components/native';
 
-export const ContainerMessageInCenter = styled.ScrollView`
+export const ContainerMessageInCenter = styled.View`
   flex: 0.8;
   align-items: center;
   justify-content: center;
