@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { scale, verticalScale } from 'react-native-size-matters';
@@ -8,6 +8,7 @@ import { ContainerMessageInCenter } from '../../components/ContainerMessageInCen
 import { FloatButtonAddCar } from '../../components/FloatButtonAddCar';
 import { HeaderWithText } from '../../components/HeaderWithText';
 import { LoadingComponent } from '../../components/LoadingComponent';
+import { ModalCreateCar } from '../../components/ModalCreateCar';
 import { TextGeneral } from '../../components/TextGeneral';
 import { TextWithTouchable } from '../../components/TextWithTouchable';
 import { colorPalette } from '../../utils/colorPalette';
@@ -21,39 +22,64 @@ export interface CarProps {
 }
 
 export function MyCars() {
-  const [myCars, setMyCars] = useState([]);
+  const [myCars, setMyCars] = useState<any>([]);
+  const [idMyCars, setIdMyCars] = useState<Array<string>>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  const [showForm, setShowForm] = useState(false);
-
-  async function addCar({ title, brand, price, age }: CarProps) {
-    try {
-      const dataCar = {
-        title,
-        brand,
-        price,
-        age,
-      };
-
-      const myNewCar = await axios.post(
-        'http://api-test.bhut.com.br:3000/api/cars',
-        dataCar,
-      );
-      setMyCars([...myCars, myNewCar.data._id]);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function getMyCars() {}
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   async function reloadScreen() {
     setRefresh(true);
-    setMyCars([]);
     await getMyCars();
 
     setTimeout(() => setRefresh(false), 1000);
   }
+
+  function deleteCacheMyCars(idCar: string) {
+    setIdMyCars(
+      idMyCars.filter(function (idMyCar) {
+        return idMyCar !== idCar;
+      }),
+    );
+    setMyCars(myCars.filter((car: { _id: string }) => car._id !== idCar));
+  }
+
+  async function getMyCars() {
+    setIsLoading(true);
+    try {
+      for (const idCar of idMyCars) {
+        const myCreatedCar = await axios.get(
+          `http://api-test.bhut.com.br:3000/api/cars/${idCar}`,
+        );
+        if (typeof myCreatedCar.data === 'string') {
+          deleteCacheMyCars(idCar);
+          return;
+        }
+        if (myCars.length <= 0) {
+          setMyCars([...myCars, myCreatedCar.data]);
+          setIsLoading(false);
+          return;
+        }
+        if (
+          !myCars.some(
+            (car: { _id: string }) => car._id === myCreatedCar.data._id,
+          )
+        ) {
+          setMyCars([...myCars, myCreatedCar.data]);
+          setIsLoading(false);
+          return;
+        }
+      }
+      setIsLoading(false);
+    } catch (e) {
+      setIsLoading(false);
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    getMyCars();
+  }, [idMyCars]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -74,11 +100,9 @@ export function MyCars() {
               title={item.title}
               brand={item.brand}
               age={item.age}
-              price={item.price
-                .replace(/[A-Za-z][^\w\s]/gi, '')
-                .replace(/,/g, '.')}
+              price={item.price}
               setIsLoading={setIsLoading}
-              onSubmit={() => {}}
+              onSubmit={() => getMyCars()}
             />
           )}
         />
@@ -102,7 +126,20 @@ export function MyCars() {
           />
         </ContainerMessageInCenter>
       )}
-      <FloatButtonAddCar showForm={showForm} setShowForm={setShowForm} />
+      {showCreateModal && (
+        <ModalCreateCar
+          idMyCars={idMyCars}
+          reloadScreen={() => getMyCars()}
+          setIsLoading={setIsLoading}
+          setIdMyCars={setIdMyCars}
+          isModalVisible={showCreateModal}
+          setIsModalVisible={setShowCreateModal}
+        />
+      )}
+      <FloatButtonAddCar
+        showForm={showCreateModal}
+        setShowForm={setShowCreateModal}
+      />
     </SafeAreaView>
   );
 }
