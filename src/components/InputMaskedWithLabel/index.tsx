@@ -4,17 +4,20 @@ import { scale } from 'react-native-size-matters';
 import { colorPalette } from '../../utils/colorPalette';
 import { InputDefault } from '../InputDefault';
 import { InputDefaultMasked } from '../InputDefaultMasked';
+import { RowLabelAndText } from '../InputWithLabel/styles';
 import { LabelForm } from '../LabelForm';
 import { TextGeneral } from '../TextGeneral';
-import { RowLabelAndText } from './styles';
 
-interface InputWithLabelProps {
+interface InputMaskedWithLabelProps {
   name: string;
   label: string;
   error: any;
-  value?: string | number;
+  value?: string | undefined;
   defaultValue?: string | number | undefined;
   inputToUpdate: boolean;
+  hasMask: boolean;
+  typeMask: string;
+  optionsMask: object;
   isNumber?: boolean;
   maxLength?: number;
   placeholder: string;
@@ -22,19 +25,22 @@ interface InputWithLabelProps {
   handleChange: (e: string) => void;
 }
 
-export function InputWithLabel({
+export function InputMaskedWithLabel({
   name,
   label,
   error,
   value,
   defaultValue,
   inputToUpdate,
+  hasMask,
+  typeMask,
+  optionsMask,
   isNumber,
   maxLength,
   placeholder,
   handleChange,
   setFieldValue,
-}: InputWithLabelProps) {
+}: InputMaskedWithLabelProps) {
   const [valueToUpdate, setValueToUpdate] = useState(
     inputToUpdate ? true : false,
   );
@@ -73,18 +79,23 @@ export function InputWithLabel({
           </RowLabelAndText>
         </>
       )}
-      <InputDefault
-          name={name}
-          value={value}
-          keyboardType={isNumber ? 'numeric' : 'text'}
-          maxLength={maxLength}
-          error={error}
-          defaultValue={defaultValue}
-          onChangeText={handleChange(name)}
-          editable={!valueToUpdate}
-          isEditable={!valueToUpdate}
-          placeholder={placeholder}
-        />
+      <InputDefaultMasked
+        name={name}
+        keyboardType="numeric"
+        maxLength={maxLength}
+        error={error}
+        type={`${typeMask}`}
+        onChangeText={(value) => {
+          setFieldValue(
+            name,
+            value.replace(/\$|\s|\.|[A-Z]/g, '').replace(',', '.'),
+          );
+        }}
+        options={optionsMask}
+        editable={!valueToUpdate}
+        isEditable={!valueToUpdate}
+        placeholder={placeholder}
+      />
     </>
   );
 }
