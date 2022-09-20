@@ -2,10 +2,11 @@ import { BackgroundFloatButton } from './styles';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { colorPalette } from '../../utils/colorPalette';
 import { scale } from 'react-native-size-matters';
+import { Dispatch, SetStateAction } from 'react';
 
 interface FloatButtonAddCarProps {
   showForm: Boolean;
-  setShowForm: (showForm: Boolean) => Boolean;
+  setShowForm: Dispatch<SetStateAction<boolean>>;
 }
 
 export function FloatButtonAddCar({
