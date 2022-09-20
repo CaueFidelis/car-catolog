@@ -18,11 +18,11 @@ export function Catalog() {
   async function getCars() {
     refresh && setIsLoading(true);
     try {
-      const cars2 = await axios.get(
+      const allCars = await axios.get(
         'http://api-test.bhut.com.br:3000/api/cars',
       );
       setIsLoading(false);
-      setCars(cars2.data);
+      setCars(allCars.data);
     } catch (e) {
       setIsLoading(false);
       console.log(e);
