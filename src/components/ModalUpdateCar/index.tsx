@@ -1,23 +1,23 @@
-import axios from 'axios';
 import { Dispatch, SetStateAction } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import { scale, verticalScale } from 'react-native-size-matters';
-import { CarProps } from '../../screens/MyCars';
 import { colorPalette } from '../../utils/colorPalette';
-import { ButtonDefault } from '../ButtonDefault';
 import { ModalView } from '../ModalView';
 import { TextGeneral } from '../TextGeneral';
+import { FormUpdateCar } from './Form/FormUpdateCar';
 
-interface ModalUpdateCarProps {
+export type ModalUpdateCarProps = {
   id: string;
   title: string;
   brand: string;
   price: string;
   age: number;
   isModalVisible: boolean;
+  onSubmit: () => void;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   setIsModalVisible: Dispatch<SetStateAction<boolean>>;
-}
+};
 
 export function ModalUpdateCar({
   id,
@@ -26,25 +26,10 @@ export function ModalUpdateCar({
   price,
   age,
   isModalVisible,
+  onSubmit,
+  setIsLoading,
   setIsModalVisible,
 }: ModalUpdateCarProps) {
-  async function updateCar({ id, title, brand, price, age }: CarProps) {
-    try {
-      const dataToUpdate = {
-        title,
-        brand,
-        price,
-        age,
-      };
-      await axios.put(
-        `http://api-test.bhut.com.br:3000/api/cars/${id}`,
-        dataToUpdate,
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  
   return (
     <Modal
       isVisible={isModalVisible}
@@ -52,18 +37,17 @@ export function ModalUpdateCar({
       animationOutTiming={1000}
       backdropOpacity={0.3}
     >
-      <ModalView>
-        <TextGeneral
-          fontSize={`${scale(16)}px`}
-          borderBottomWidth={`${scale(1)}px`}
-          borderColor={colorPalette.darkRed}
-          marginBottom={`${verticalScale(10)}px`}
-        >
-          Dê uma diferenciada!
-        </TextGeneral>
-        <ButtonDefault
-          onButtonPress={() => updateCar()}
-          textInButton="ATUALIZAR"
+      <ModalView alignItems="center">
+        <FormUpdateCar
+          id={id}
+          title={title}
+          brand={brand}
+          price={price}
+          age={age}
+          isModalVisible={isModalVisible}
+          onSubmit={onSubmit}
+          setIsLoading={setIsLoading}
+          setIsModalVisible={setIsModalVisible}
         />
         <TouchableOpacity onPress={() => setIsModalVisible(false)}>
           <TextGeneral
