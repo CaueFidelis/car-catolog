@@ -5,6 +5,7 @@ import { scale, verticalScale } from 'react-native-size-matters';
 import { CardCar, CardCarProps } from '../../components/CardCar';
 import { ContainerMessageInCenter } from '../../components/ContainerMessageInCenter';
 import { HeaderWithText } from '../../components/HeaderWithText';
+import { InputSearch } from '../../components/InputSearch';
 import { LoadingComponent } from '../../components/LoadingComponent';
 import { TextGeneral } from '../../components/TextGeneral';
 import { TextWithTouchable } from '../../components/TextWithTouchable';
@@ -14,6 +15,9 @@ export function Catalog() {
   const [cars, setCars] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [textSearch, setTextSearch] = useState('');
+  const [searchedCars, setSearchedCars] = useState([]);
+  const [onSearching, setOnSearching] = useState(false);
 
   async function getCars() {
     refresh && setIsLoading(true);
@@ -37,17 +41,50 @@ export function Catalog() {
     setTimeout(() => setRefresh(false), 1000);
   }
 
+  function searchCars(text: string) {
+    if (text.length > 0) {
+      setOnSearching(true);
+      const carsSearchedList = cars;
+      setSearchedCars(
+        carsSearchedList.filter((item: { title: string }) =>
+          item.title
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .includes(text.toString().toLowerCase()),
+        ),
+      );
+      return;
+    }
+    setOnSearching(false);
+    setSearchedCars(cars);
+  }
+
   useEffect(() => {
     getCars();
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: '#fff', }}
+    >
       <LoadingComponent visible={isLoading} />
       <HeaderWithText title="Qual carro você prefere?" />
+      <InputSearch
+        name="textSearch"
+        value={textSearch}
+        defaultValue={textSearch}
+        setTextSearch={setTextSearch}
+        setOnSearching={setOnSearching}
+        placeholder="Fuscão Preto..."
+        onChangeText={(textSearch) => {
+          setTextSearch(textSearch);
+          searchCars(textSearch);
+        }}
+      />
       {cars.length > 0 && (
         <FlatList
-          data={cars}
+          data={onSearching ? searchedCars : cars}
           refreshControl={
             <RefreshControl
               refreshing={refresh}
