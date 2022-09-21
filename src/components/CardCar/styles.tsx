@@ -12,7 +12,7 @@ export const CardCarView = styled.View`
   align-self: center;
   align-items: center;
   justify-content: space-between;
-  margin-top: ${verticalScale(20)}px;
+  margin-top: ${verticalScale(10)}px;
 `;
 
 export const RowViewCardCar = styled.View`
