@@ -32,33 +32,14 @@ export function ModalCreateCar({
       backdropOpacity={0.3}
     >
       <ModalView alignItems="center">
-        <TextGeneral
-          fontSize={`${scale(16)}px`}
-          borderBottomWidth={`${scale(1)}px`}
-          borderColor={colorPalette.darkRed}
-          marginBottom={`${verticalScale(25)}px`}
-        >
-          Dê uma diferenciada!
-        </TextGeneral>
-
         <FormCreateCar
           idMyCars={idMyCars}
           setIdMyCars={setIdMyCars}
           setIsLoading={setIsLoading}
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
           reloadScreen={reloadScreen}
         />
-        <TouchableOpacity onPress={() => setIsModalVisible(false)}>
-          <TextGeneral
-            fontSize={`${scale(14)}px`}
-            fontColor={colorPalette.paleRed}
-            fontWeight="bold"
-            borderBottomWidth={`${scale(1)}px`}
-            borderColor={colorPalette.paleRed}
-            marginTop={`${verticalScale(10)}px`}
-          >
-            Cancelar
-          </TextGeneral>
-        </TouchableOpacity>
       </ModalView>
     </Modal>
   );
