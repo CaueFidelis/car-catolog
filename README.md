@@ -48,9 +48,9 @@ Abaixo estão as tecnologias e bibliotecas mais complexas utilizadas neste proje
 
 Você pode baixar no seu celular o [Aplicativo Expo Go](https://github.com/CaueFidelis) e testar ele no seu celular ao invés de rodar localmente, assim fica até mais facil para testar. Abaixo você verá o QR code e o link para copiar e colar no [Aplicativo Expo Go](https://github.com/CaueFidelis).
 
-<img alt='QR CODE App' src='' style='margin: 0 auto'/>
+<img alt='QR CODE App' src='./github/qrCodeApp.png' style='margin: 0 auto'/>
 
-[http]()
+[https://expo.dev/accounts/cauef/projects/catalog-cars/builds/6b8b3e8f-2ed2-440c-9ab4-5ad4888fb7ea](https://expo.dev/accounts/cauef/projects/catalog-cars/builds/6b8b3e8f-2ed2-440c-9ab4-5ad4888fb7ea)
 
 ### Pré-requisitos para Testar Localmente
 
