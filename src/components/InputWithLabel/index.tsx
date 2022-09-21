@@ -18,6 +18,7 @@ interface InputWithLabelProps {
   isNumber?: boolean;
   maxLength?: number;
   placeholder: string;
+  borderColor?: string;
   setFieldValue: (field: string, value: any) => void;
   handleChange: (e: string) => void;
 }
@@ -32,6 +33,7 @@ export function InputWithLabel({
   isNumber,
   maxLength,
   placeholder,
+  borderColor,
   handleChange,
   setFieldValue,
 }: InputWithLabelProps) {
@@ -76,6 +78,7 @@ export function InputWithLabel({
       <InputDefault
           name={name}
           value={value}
+          borderColor={borderColor}
           keyboardType={isNumber ? 'numeric' : 'text'}
           maxLength={maxLength}
           error={error}

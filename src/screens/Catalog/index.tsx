@@ -4,7 +4,6 @@ import { FlatList, RefreshControl, SafeAreaView } from 'react-native';
 import { scale, verticalScale } from 'react-native-size-matters';
 import { CardCar, CardCarProps } from '../../components/CardCar';
 import { ContainerMessageInCenter } from '../../components/ContainerMessageInCenter';
-import { FilterComponent } from '../../components/FilterComponent';
 import { HeaderWithText } from '../../components/HeaderWithText';
 import { InputSearch } from '../../components/InputSearch';
 import { LoadingComponent } from '../../components/LoadingComponent';
@@ -16,7 +15,6 @@ export function Catalog() {
   const [cars, setCars] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [textSearch, setTextSearch] = useState('');
   const [searchedCars, setSearchedCars] = useState([]);
   const [onSearching, setOnSearching] = useState(false);
@@ -81,10 +79,6 @@ export function Catalog() {
           setTextSearch(textSearch);
           searchCars(textSearch);
         }}
-      />
-      <FilterComponent
-        isFilterVisible={isFilterVisible}
-        setIsFilterVisible={setIsFilterVisible}
       />
       {cars.length > 0 && (
         <FlatList

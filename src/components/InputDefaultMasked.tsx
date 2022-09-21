@@ -4,14 +4,17 @@ import { colorPalette } from '../utils/colorPalette';
 import { MaskedTextInput } from 'react-native-mask-text';
 
 interface InputDefaultMaskedProps {
-  isEditable: boolean;
-  marginBottom: string;
-  error: any;
+  width?: string;
+  isEditable?: boolean;
+  borderColor?: string;
+  marginBottom?: string;
+  marginRight?: string;
+  error?: any;
 }
 
 export const InputDefaultMasked = styled(MaskedTextInput)`
   font-size: ${scale(11)}px;
-  width: 100%;
+  width: ${(props) => props.width || '100%'};
   height: ${verticalScale(30)}px;
   background-color: ${(props: InputDefaultMaskedProps) =>
     props.isEditable ? '#fff' : `${colorPalette.paleGray}`};
@@ -23,10 +26,12 @@ export const InputDefaultMasked = styled(MaskedTextInput)`
     props.isEditable ? 'normal' : 'bold'};
   border: ${scale(1)}px solid ${colorPalette.darkRed};
   border-color: ${(props: InputDefaultMaskedProps) =>
-    props.error ? `${colorPalette.paleRed}` : `${colorPalette.darkRed}`};
+    props.error && `${colorPalette.paleRed}` || props.borderColor || `${colorPalette.darkRed}`};
   border-radius: ${scale(5)}px;
   padding: 0 ${scale(10)}px 0 ${scale(10)}px;
-  margin: ${verticalScale(5)}px;
+  margin: ${verticalScale(5)}px 0 0 0;
   margin-bottom: ${(props: InputDefaultMaskedProps) =>
     props.marginBottom || `${verticalScale(10)}px`};
+  margin-right: ${(props: InputDefaultMaskedProps) =>
+    props.marginRight || `0`};
 `;

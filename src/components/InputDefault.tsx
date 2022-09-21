@@ -5,6 +5,7 @@ import { colorPalette } from '../utils/colorPalette';
 interface InputDefaultProps {
   isEditable: boolean;
   marginBottom: string;
+  borderColor: string;
   error: any;
 }
 
@@ -22,7 +23,9 @@ export const InputDefault = styled.TextInput`
     props.isEditable ? 'normal' : 'bold'};
   border: ${scale(1)}px solid ${colorPalette.darkRed};
   border-color: ${(props: InputDefaultProps) =>
-    props.error ? `${colorPalette.paleRed}` : `${colorPalette.darkRed}`};
+    (props.error && `${colorPalette.paleRed}`) ||
+    props.borderColor ||
+    `${colorPalette.darkRed}`};
   border-radius: ${scale(5)}px;
   padding: 0 ${scale(10)}px 0 ${scale(10)}px;
   margin: ${verticalScale(5)}px;

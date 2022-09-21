@@ -4,6 +4,7 @@ import { colorPalette } from '../../utils/colorPalette';
 
 interface ButtonDefaultBackgroundProps {
   width: string;
+  marginTop: string;
 }
 
 export const ButtonDefaultBackground = styled.TouchableOpacity`
@@ -14,6 +15,7 @@ export const ButtonDefaultBackground = styled.TouchableOpacity`
   padding: ${verticalScale(8)}px 0;
   align-items: center;
   text-align: center;
+  margin-top: ${(props) => props.marginTop || `0`};
 `;
 
 export const TextInButton = styled.Text`

@@ -1,18 +1,24 @@
 import { ButtonDefaultBackground, TextInButton } from './styles';
 
 interface ButtonDefaultProps {
-  onButtonPress: () => void;
-  textInButton: string;
   buttonWidth?: string;
+  marginTop?: string;
+  textInButton: string;
+  onButtonPress: () => void;
 }
 
 export function ButtonDefault({
-  onButtonPress,
-  textInButton,
   buttonWidth,
+  marginTop,
+  textInButton,
+  onButtonPress,
 }: ButtonDefaultProps) {
   return (
-    <ButtonDefaultBackground onPress={onButtonPress} width={buttonWidth}>
+    <ButtonDefaultBackground
+      onPress={onButtonPress}
+      width={buttonWidth}
+      marginTop={marginTop}
+    >
       <TextInButton>{textInButton}</TextInButton>
     </ButtonDefaultBackground>
   );
