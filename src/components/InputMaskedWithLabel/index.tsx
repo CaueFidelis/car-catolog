@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { MaskedText } from 'react-native-mask-text';
 import { scale } from 'react-native-size-matters';
@@ -45,6 +45,7 @@ export function InputMaskedWithLabel({
   const [valueToUpdate, setValueToUpdate] = useState(
     inputToUpdate ? true : false,
   );
+
   return (
     <>
       {valueToUpdate ? (
@@ -82,7 +83,6 @@ export function InputMaskedWithLabel({
       )}
       <InputDefaultMasked
         name={name}
-        value={value}
         keyboardType="numeric"
         maxLength={maxLength}
         error={error}
