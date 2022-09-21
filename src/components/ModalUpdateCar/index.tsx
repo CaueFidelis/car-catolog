@@ -49,18 +49,6 @@ export function ModalUpdateCar({
           setIsLoading={setIsLoading}
           setIsModalVisible={setIsModalVisible}
         />
-        <TouchableOpacity onPress={() => setIsModalVisible(false)}>
-          <TextGeneral
-            fontSize={`${scale(14)}px`}
-            fontColor={colorPalette.paleRed}
-            fontWeight="bold"
-            borderBottomWidth={`${scale(1)}px`}
-            borderColor={colorPalette.paleRed}
-            marginTop={`${verticalScale(10)}px`}
-          >
-            Cancelar
-          </TextGeneral>
-        </TouchableOpacity>
       </ModalView>
     </Modal>
   );
