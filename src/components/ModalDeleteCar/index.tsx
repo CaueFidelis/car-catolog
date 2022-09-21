@@ -34,7 +34,6 @@ export function ModalDeleteCar({
     try {
       await axios.delete(`http://api-test.bhut.com.br:3000/api/cars/${_id}`);
       setOnDeleted(true);
-      onSubmit();
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -65,7 +64,12 @@ export function ModalDeleteCar({
             >
               O Carro foi deletado com Sucesso.
             </TextGeneral>
-            <TouchableOpacity onPress={() => setIsModalVisible(false)}>
+            <TouchableOpacity
+              onPress={() => {
+                onSubmit();
+                setIsModalVisible(false);
+              }}
+            >
               <TextGeneral
                 fontSize={`${scale(16)}px`}
                 fontColor={colorPalette.paleRed}
