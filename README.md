@@ -71,13 +71,13 @@ Além disto é bom ter um editor para trabalhar com o código como o [VSCode](ht
   $ cd car-catolog
 
   # Instale as dependências
-  $ yarn
+  $ yarn install ou npm install
 
   # Execute a aplicação em modo de desenvolvimento
-  $ yarn start
+  $ yarn start ou npm run start
 
   # E se preferir pode também fazer a build, mas certifique-se de estar logado no expo
-  $ yarn build
+  $ yarn build ou npm run build
 ```
 
 <br>
