@@ -46,7 +46,7 @@ Abaixo estão as tecnologias e bibliotecas mais complexas utilizadas neste proje
 
 ### Teste do Aplicativo com QR Code
 
-Você pode baixar no seu app o aplicativo e testar ele no seu celular ao invés de rodar localmente. Abaixo você verá o QR code e o link para copiar e colar no app.
+Você pode baixar no seu celular o [Aplicativo Expo Go](https://github.com/CaueFidelis) e testar ele no seu celular ao invés de rodar localmente, assim fica até mais facil para testar. Abaixo você verá o QR code e o link para copiar e colar no [Aplicativo Expo Go](https://github.com/CaueFidelis).
 
 <img alt='QR CODE App' src='' style='margin: 0 auto'/>
 
